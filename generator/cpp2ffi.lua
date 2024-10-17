@@ -1217,7 +1217,7 @@ function M.Parser()
 	function par.get_skipped(def)
 		return par.skipped[def.ov_cimguiname] or par.skipped[def.cimguiname]
 	end
-	function par:take_lines(cmd_line,names,compiler)
+	function par:take_lines(cmd_line,names,compiler,output_path)
 		if self.COMMENTS_GENERATION then
 			cmd_line = cmd_line .. (compiler=="cl" and " /C " or " -C ")
 		end
@@ -1231,7 +1231,7 @@ function M.Parser()
 			self:insert(line, tostring(loca)..":"..tostring(loca2))
 			table.insert(preprocessed,line)--
 		end
-		save_data("preprocesed.h",table.concat(preprocessed,"\n"))
+		save_data(output_path,table.concat(preprocessed,"\n"))
 		pipe:close()
 		return defines
 	end
