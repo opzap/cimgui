@@ -75,4 +75,7 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 echo "CFLAGS: " $CFLAGS
 echo "TARGETS: " $TARGETS
 
-luajit$suffix ./generator.lua gcc "$TARGETS" $CFLAGS
+# Resolve path to generator.sh so we can call it from anywhere
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+luajit$suffix $SCRIPT_DIR/generator.lua gcc "$TARGETS" $CFLAGS
