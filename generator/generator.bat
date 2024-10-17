@@ -9,6 +9,12 @@
 :: structs_and_enums.lua with struct and enum information-definitions
 :: impl_definitions.lua for implementation function definitions
 
+:: Resolve path to generator.sh so we can call it from anywhere
+@echo off
+set "ROOT_DIR=%~dp0"
+set "ROOT_DIR=%ROOT_DIR:~0,-1%"
+@echo on
+
 :: set your PATH if necessary for LuaJIT or Lua5.1 or luajit with: (for example)
 set PATH=%PATH%;C:\anima;C:\mingws\i686-7.2.0-release-posix-dwarf-rt_v5-rev1\mingw32\bin;
 :: set PATH=%PATH%;C:\luaGL;C:\i686-7.2.0-release-posix-dwarf-rt_v5-rev1\mingw32\bin;
@@ -19,7 +25,7 @@ set PATH=%PATH%;C:\anima;C:\mingws\i686-7.2.0-release-posix-dwarf-rt_v5-rev1\min
 :: "constructors" adds the _Construct version of constructors
 :: examples: "" "internal" "internal freetype comments"
 :: arg[3..n] name of implementations to generate and/or CFLAGS (e.g. -DIMGUI_USER_CONFIG or -DIMGUI_USE_WCHAR32)
-luajit ./generator.lua gcc "internal noimstrv" glfw opengl3 opengl2 sdl2 sdl3 %*
+luajit "%ROOT_DIR%\generator.lua" gcc "internal noimstrv" glfw opengl3 opengl2 sdl2 sdl3 %*
 
 ::leave console open
 cmd /k
